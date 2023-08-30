@@ -4,8 +4,8 @@ const bootcampController = require("./app/controllers/bootcamp.controller");
 
 const run = async() => {
     const user1 = await userController.createUser({
-        firstName: "Nicolas Vladimir",
-        lastName: "Caceres Latorre",
+        firstname: "Nicolas Vladimir",
+        lastname: "Caceres Latorre",
         email: "nicolas.programador@gmail.com"
     });
 
@@ -15,6 +15,22 @@ const run = async() => {
         descripcion: "Curso desde cero en Js para FrontEnd y Backend"
     });
 
+    await bootcampController.addUserBoomcamp(user1.id, bootcamp1.id);
+
+    await userController.getUsersForBootcamp(bootcamp1.id);
+
+    const users_boot = await userController.findAll();
+    console.log(`La respuesta es: ----- ${JSON.stringify(users_boot,null,2)}`);
+
+    await userController.updateUser(1,'Zenaku');
+
+    await userController.deleteUser(1);
+
+    await bootcampController.getBootcampForUser(user1.id);
+
+    await bootcampController.updateBootcamp(bootcamp1.id,'React Js');
+
+    await bootcampController.deleteBootcamp(bootcamp1.id);
 }
 
 db.sequelize.sync({
